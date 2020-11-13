@@ -1,0 +1,2 @@
+# filecrypt
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa80e39fc9164155bff92e15173e4040)](https://app.codacy.com/gh/flew-software/filecrypt?utm_source=github.com&utm_medium=referral&utm_content=flew-software/filecrypt&utm_campaign=Badge_Grade)
