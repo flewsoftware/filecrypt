@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="build all x64" type="CompoundRunConfigurationType">
+    <toRun name="go build filecrypt/src production (win) x64" type="GoApplicationRunConfiguration" />
+    <toRun name="go build filecrypt/src production (mac) x64" type="GoApplicationRunConfiguration" />
+    <toRun name="go build filecrypt/src production (linux) x64" type="GoApplicationRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>

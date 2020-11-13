@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go build filecrypt/src production (win) x64" type="GoApplicationRunConfiguration" factoryName="Go Application" show_console_on_std_err="true">
+    <module name="filecrypt" />
+    <working_directory value="$PROJECT_DIR$/src" />
+    <go_parameters value="-i -ldflags &quot;-s -w&quot; -o ../bin/windows/filecrypt.exe" />
+    <envs>
+      <env name="GOARCH" value="amd64" />
+      <env name="GOOS" value="windows" />
+    </envs>
+    <kind value="DIRECTORY" />
+    <filePath value="$PROJECT_DIR$/" />
+    <directory value="$PROJECT_DIR$/src" />
+    <output_directory value="$PROJECT_DIR$/bin/windows" />
+    <option name="run" value="false" />
+    <method v="2">
+      <option name="GoBeforeRunTask" command="test" />
+    </method>
+  </configuration>
+</component>
