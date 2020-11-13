@@ -83,7 +83,7 @@ func main() {
 	writeFileMain := func() {
 
 		// Checks if file exists
-		val := Exists(fileLocation + fileCryptExtension)
+		val := exists(fileLocation + fileCryptExtension)
 		if val {
 			if force {
 				println("Overwriting file because of the usage of the \"--force\" flag")
@@ -145,7 +145,7 @@ func main() {
 
 			log.Println("Checking if " + fileLocation + " exists")
 			// Checks if file exists
-			val := Exists(realFile)
+			val := exists(realFile)
 			if val {
 				if force {
 					println("Overwriting file because of the usage of the \"--force\" flag")
@@ -201,11 +201,9 @@ func readFile(fileLocation string, readChan chan []byte, wg *sync.WaitGroup) {
 	readChan <- b
 }
 
-/*
-	Checks if a file exists in the given location
-	returns true if the file already exists
-*/
-func Exists(filename string) bool {
+/*Checks if a file exists in the given location
+  returns true if the file already exists*/
+func exists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
 		return false
