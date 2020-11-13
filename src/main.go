@@ -27,9 +27,8 @@ func (p *passphrase) validate() bool {
 	pString := string(*p)
 	if len(pString) < 4 {
 		return false
-	} else {
-		return true
 	}
+	return true
 }
 
 func createHash(key string) hash {
