@@ -59,8 +59,8 @@ func main() {
 	// flag vars
 	var fileLocation string
 	var password passphrase
-	var encryptB bool = false
-	var decryptB bool = false
+	var encryptB = false
+	var decryptB = false
 	var mode string
 	var force bool
 
