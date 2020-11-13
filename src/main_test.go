@@ -39,6 +39,7 @@ func TestEncryptDecrypt(t *testing.T) {
 		{"test", passphrase("195s2f5")},
 		{"test", passphrase("%%%%%%%s")},
 		{"test", passphrase("#491k2@")},
+		{"test", passphrase("[]'fd;fo;hkaf")},
 	}
 	for _, test := range tests {
 		var wg sync.WaitGroup
