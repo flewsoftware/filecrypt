@@ -85,6 +85,7 @@ func TestPassphraseValidate(t *testing.T) {
 		{passphrase("pop"), false},
 		{passphrase("lol"), false},
 		{passphrase("123"), false},
+		{passphrase("default"), false},
 	}
 	for _, test := range tests {
 		pass := test.passphrase
