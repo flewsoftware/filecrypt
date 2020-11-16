@@ -27,6 +27,8 @@ func (p *passphrase) validate() bool {
 	pString := string(*p)
 	if len(pString) < 4 {
 		return false
+	} else if pString == "default" {
+		return false
 	}
 	return true
 }
@@ -98,7 +100,7 @@ func main() {
 
 			// validates password
 			if password.validate() == false {
-				log.Fatalln("password too small must have at least 2 letters")
+				log.Fatalln("password too small must have at least 2 letters or password is default")
 			}
 
 			log.Println("Reading " + fileLocation)
