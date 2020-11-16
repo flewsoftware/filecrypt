@@ -1,6 +1,7 @@
 # filecrypt
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/12610588667845698ee710628e313c0b)](https://www.codacy.com/gh/flew-software/filecrypt/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=flew-software/filecrypt&amp;utm_campaign=Badge_Grade)
-[![](https://tokei.rs/b1/github/flew-software/filecrypt?category=lines)](https://github.com/flew-software/filecrypt)   
+[![](https://tokei.rs/b1/github/flew-software/filecrypt?category=lines)](https://github.com/flew-software/filecrypt)
+![](https://img.shields.io/badge/Binaries%20under-800kb-succes)   
 ![GitHub repo size](https://img.shields.io/github/repo-size/flew-software/filecrypt)
 [![Written in](https://img.shields.io/badge/Written%20in-golang-blue)](https://golang.org)   
 A super easy to use file encryption utility written in golang
