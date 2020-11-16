@@ -17,3 +17,9 @@ A super easy to use file encryption utility written in golang
 3. Move the downloaded executable(.exe) to the folder created in step 2
 4. Add the path of the created folder created in step 2 into [windows path variable](https://docs.alfresco.com/4.2/tasks/fot-addpath.html) 
 5. Open the command prompt and enter `filecrypt --help` for detailed info about using flags 
+
+## How can I help?
+* Staring this project on github
+* Creating issues
+* Contributing with code or documentation
+* Sharing this project with your friends
