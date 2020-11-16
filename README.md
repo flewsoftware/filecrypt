@@ -4,8 +4,8 @@
 ![](https://img.shields.io/badge/Binaries%20under-800kb-succes)   
 ![GitHub repo size](https://img.shields.io/github/repo-size/flew-software/filecrypt)
 [![Written in](https://img.shields.io/badge/Written%20in-golang-blue)](https://golang.org)   
-A super easy to use file encryption utility written in golang
-
+A super easy to use file encryption utility written in golang   
+[![FILECRYPT](https://repository-images.githubusercontent.com/312549577/6eb8d100-2851-11eb-9c77-3a2a197b95ee)](https://github.com/flew-software/filecrypt)
 
 ## What's the difference
 * Speed
