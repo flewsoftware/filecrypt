@@ -43,7 +43,10 @@ func encrypt(data []byte, p passphrase, channel chan encryptedData, wg *sync.Wai
 	block, _ := aes.NewCipher([]byte(createHash(string(p))))
 	gcm, _ := cipher.NewGCM(block)
 	nonce := make([]byte, gcm.NonceSize())
-	_, _ = io.ReadFull(rand.Reader, nonce)
+	_, err := io.ReadFull(rand.Reader, nonce)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	cipherText := gcm.Seal(nonce, nonce, data, nil)
 	channel <- cipherText
 }
