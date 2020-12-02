@@ -59,12 +59,14 @@ func decrypt(data []byte, p passphrase) decryptedData {
 
 func main() {
 	// flag vars
-	var fileLocation string
-	var password passphrase
-	var encryptB = false
-	var decryptB = false
-	var mode string
-	var force bool
+        var (
+	    fileLocation string
+	    password passphrase
+	    encryptB = false
+	    decryptB = false
+	    mode string
+	    force bool
+        )
 
 	// flags
 	flag.StringVar(&fileLocation, "location", "./", "Location of the file")
