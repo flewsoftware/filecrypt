@@ -185,7 +185,7 @@ func main() {
 			defer nf.Close()
 			log.Println("Created " + realFile)
 
-			log.Println("Writing decrypted data to" + realFile)
+			log.Println("Writing decrypted data to " + realFile)
 			// writes decrypted buffer to the file
 			_, writeErr := nf.Write(clearText)
 			if writeErr != nil {
