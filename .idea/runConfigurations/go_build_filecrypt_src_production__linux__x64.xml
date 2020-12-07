@@ -1,15 +1,25 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="go build filecrypt/src production (linux) x64" type="GoApplicationRunConfiguration" factoryName="Go Application" show_console_on_std_err="true">
     <module name="filecrypt" />
-    <working_directory value="$PROJECT_DIR$/src" />
+    <working_directory value="$PROJECT_DIR$/" />
     <go_parameters value="-i -ldflags &quot;-s -w&quot; -o ../bin/linux/filecrypt" />
     <envs>
       <env name="GOARCH" value="amd64" />
       <env name="GOOS" value="linux" />
     </envs>
+    <EXTENSION ID="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+      </ENTRIES>
+    </EXTENSION>
     <kind value="DIRECTORY" />
     <filePath value="$PROJECT_DIR$/" />
-    <directory value="$PROJECT_DIR$/src" />
+    <directory value="$PROJECT_DIR$/cmd/filecrypt" />
     <output_directory value="$PROJECT_DIR$/bin/linux" />
     <option name="run" value="false" />
     <method v="2">
