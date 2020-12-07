@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"github.com/flew-software/filecrypt"
@@ -12,6 +13,7 @@ import (
 const fileCryptExtension string = ".fcef"
 
 func main() {
+	reader := bufio.NewReader(os.Stdin)
 	// flag vars
 	var (
 		fileLocation string
@@ -22,7 +24,6 @@ func main() {
 
 	// flags
 	flag.StringVar(&fileLocation, "location", "./", "Location of the file")
-	flag.StringVar(&password, "password", "default", "Password to use while encrypting/decrypting")
 	flag.StringVar(&mode, "mode", "undefined", "FileCrypt mode (encrypt/decrypt)")
 	flag.BoolVar(&force, "force", false, "Force write even if a file exists with that name (overwrite)")
 	flag.Parse()
@@ -31,6 +32,10 @@ func main() {
 		FileCryptExtension: fileCryptExtension,
 		Overwrite:          force,
 	}
+	// asks for password
+	println("Enter a password")
+	password, _ = reader.ReadString('\n')
+	password = strings.Replace(password, "\n", "", -1)
 
 	switch strings.ToLower(mode) {
 	case "encrypt", "e":
