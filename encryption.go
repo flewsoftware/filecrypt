@@ -3,10 +3,8 @@ package filecrypt
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/md5"
 	"crypto/rand"
-	"encoding/hex"
-	"fmt"
+	"crypto/sha256"
 	"io"
 )
 
@@ -14,30 +12,66 @@ type encryptedData []byte
 type decryptedData []byte
 type hash string
 
-func createHash(key string) hash {
-	hasher := md5.New()
+func createHashSHA256(key string) hash {
+	hasher := sha256.New()
 	hasher.Write([]byte(key))
-	return hash(hex.EncodeToString(hasher.Sum(nil)))
+	hashS := hasher.Sum(nil)
+	return hash(hashS)
 }
 
-func encrypt(data []byte, p Passphrase) (encryptedData, error) {
-	block, _ := aes.NewCipher([]byte(createHash(string(p))))
-	gcm, _ := cipher.NewGCM(block)
-	nonce := make([]byte, gcm.NonceSize())
-	_, err := io.ReadFull(rand.Reader, nonce)
+func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
+	// convert string to bytes
+	key := createHashSHA256(string(p))
+
+	// create a new cipher block from the key
+	block, err := aes.NewCipher([]byte(key))
 	if err != nil {
-		return nil, fmt.Errorf("could not get nonce: %w", err)
+		return nil, err
 	}
-	cipherText := gcm.Seal(nonce, nonce, data, nil)
-	return cipherText, nil
+
+	// create a new GCM
+	aesGCM, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+
+	// create a nonce
+	nonce := make([]byte, aesGCM.NonceSize())
+	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
+		return nil, err
+	}
+
+	// encrypt the data using aesGCM.Seal
+	cipherData := aesGCM.Seal(nonce, nonce, data, nil)
+	return cipherData, nil
+
 }
 
-func decrypt(data []byte, p Passphrase) (decryptedData, error) {
-	key := []byte(createHash(string(p)))
-	block, _ := aes.NewCipher(key)
-	gcm, _ := cipher.NewGCM(block)
-	nonceSize := gcm.NonceSize()
+func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
+	key := createHashSHA256(string(p))
+
+	// create a new cipher block from the key
+	block, err := aes.NewCipher([]byte(key))
+	if err != nil {
+		return nil, err
+	}
+
+	// create a new GCM
+	aesGCM, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+
+	// get the nonce sizw
+	nonceSize := aesGCM.NonceSize()
+
+	// extract the nonce form the encrypted data
 	nonce, cipherText := data[:nonceSize], data[nonceSize:]
-	plainText, err := gcm.Open(nil, nonce, cipherText, nil)
-	return plainText, err
+
+	// decrypt the data
+	plainData, err := aesGCM.Open(nil, nonce, cipherText, nil)
+	if err != nil {
+		return nil, err
+	}
+	return plainData, nil
 }
