@@ -33,7 +33,7 @@ func main() {
 		Overwrite:          force,
 	}
 	// asks for password
-	println("Enter a password")
+	print("Enter a password> ")
 	password, _ = reader.ReadString('\n')
 	password = strings.Replace(password, "\n", "", -1)
 
