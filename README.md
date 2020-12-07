@@ -25,7 +25,9 @@ A super easy to use file encryption utility written in golang
 * `--force` - Force write even if a file exists with that name (overwrite) DESTRUCTIVE
 * `--location` - The location of the file to encrypt/decrypt(determined by the mode flag)
 * `--mode` - FileCrypt mode (encrypt/decrypt These can be replaced with their first letters) Example: `filecrypt --mode=e --location="super secret file.txt" --password="test"`
-* `--password` - Password to be used while encrypting/decrypting
+* `--password` - (removed in release v1.1.1 & later) Password to be used while encrypting/decrypting   
+**Note: due to security issues with commandline flags the password will be prompted at runtime.**
+
 
 ## Q&A
 ### How can I help?
