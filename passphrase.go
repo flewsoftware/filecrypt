@@ -15,7 +15,7 @@ func (p Passphrase) String() string {
 func (p *Passphrase) validate() error {
 	pString := string(*p)
 	if len(p.String()) < minPasswordLength {
-		return fmt.Errorf("password must be at least %d characters in length", minPasswordLength)
+		return fmt.Errorf("password must be at least %d characters in length", minPasswordLength-1)
 	} else if pString == "default" {
 		return fmt.Errorf("non-default password required")
 	}
