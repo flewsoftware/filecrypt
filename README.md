@@ -1,6 +1,7 @@
 # filecrypt
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/12610588667845698ee710628e313c0b)](https://www.codacy.com/gh/flew-software/filecrypt/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=flew-software/filecrypt&amp;utm_campaign=Badge_Grade)
 [![Go Report Card](https://goreportcard.com/badge/github.com/flew-software/filecrypt)](https://goreportcard.com/report/github.com/flew-software/filecrypt)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fflew-software%2Ffilecrypt.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fflew-software%2Ffilecrypt?ref=badge_shield)
 [![](https://tokei.rs/b1/github/flew-software/filecrypt?category=lines)](https://github.com/flew-software/filecrypt)
 ![](https://img.shields.io/badge/Binaries%20under-800kb-succes)   
 ![GitHub repo size](https://img.shields.io/github/repo-size/flew-software/filecrypt)
@@ -44,3 +45,7 @@ Because Filecrypt
 * Has no unwanted code
 * Is built with `-ldflags "-s -w"` flag
 * Executable is compressed with [upx](https://upx.github.io/) (Only extra small binaries)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fflew-software%2Ffilecrypt.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fflew-software%2Ffilecrypt?ref=badge_large)
