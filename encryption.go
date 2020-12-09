@@ -92,7 +92,7 @@ func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 	// get the nonce size
 	nonceSize := aesGCM.NonceSize()
 
-	// extract the nonce form the encrypted data
+	// extract the nonce from the encrypted data
 	nonce, cipherText := mix[:nonceSize], mix[nonceSize:]
 
 	// decrypt the data
