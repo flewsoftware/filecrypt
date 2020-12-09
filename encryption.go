@@ -4,24 +4,40 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
-	"crypto/sha256"
+	"errors"
+	"golang.org/x/crypto/argon2"
 	"io"
+	"log"
+	"strings"
 )
 
 type encryptedData []byte
 type decryptedData []byte
 type hash string
 
-func createHashSHA256(key string) hash {
-	hasher := sha256.New()
-	hasher.Write([]byte(key))
-	hashS := hasher.Sum(nil)
-	return hash(hashS)
+const saltSize = 16
+const encryptionVer string = "v0002" + "\n"
+
+var supportedVersions = []string{"v0002"}
+
+func createHashArgon(key string, salt []byte) (hash, error) {
+	return hash(argon2.IDKey([]byte(key), salt, 1, 60*1024, 4, 32)), nil
 }
 
 func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
+	salt := make([]byte, saltSize)
+
+	// Generate a Salt
+	if _, err := rand.Read(salt); err != nil {
+		return encryptedData(""), err
+	}
+
 	// convert string to bytes
-	key := createHashSHA256(string(p))
+	key, err := createHashArgon(string(p), salt)
+	log.Println(len(key))
+	if err != nil {
+		return nil, err
+	}
 
 	// create a new cipher block from the key
 	block, err := aes.NewCipher([]byte(key))
@@ -42,13 +58,24 @@ func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
 	}
 
 	// encrypt the data using aesGCM.Seal
-	cipherData := aesGCM.Seal(nonce, nonce, data, nil)
+	cipherData := append([]byte(encryptionVer), salt...)
+	cipherData = append(cipherData, aesGCM.Seal(nonce, nonce, data, nil)...)
 	return cipherData, nil
 
 }
 
 func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
-	key := createHashSHA256(string(p))
+	ver, SaltAndMix := data[:len(encryptionVer)], data[len(encryptionVer):]
+	log.Println(string(ver))
+	if !checkSupport(string(ver)) {
+		return nil, errors.New("version not supported")
+	}
+
+	salt, mix := SaltAndMix[:saltSize], SaltAndMix[saltSize:] // salt
+	key, err := createHashArgon(string(p), salt)
+	if err != nil {
+		return nil, err
+	}
 
 	// create a new cipher block from the key
 	block, err := aes.NewCipher([]byte(key))
@@ -62,11 +89,11 @@ func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 		return nil, err
 	}
 
-	// get the nonce sizw
+	// get the nonce size
 	nonceSize := aesGCM.NonceSize()
 
 	// extract the nonce form the encrypted data
-	nonce, cipherText := data[:nonceSize], data[nonceSize:]
+	nonce, cipherText := mix[:nonceSize], mix[nonceSize:]
 
 	// decrypt the data
 	plainData, err := aesGCM.Open(nil, nonce, cipherText, nil)
@@ -74,4 +101,12 @@ func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 		return nil, err
 	}
 	return plainData, nil
+}
+func checkSupport(ver string) bool {
+	for i := 0; i < len(supportedVersions); i++ {
+		if supportedVersions[i] == strings.Replace(ver, "\n", "", -1) {
+			return true
+		}
+	}
+	return false
 }
