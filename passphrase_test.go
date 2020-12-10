@@ -34,6 +34,8 @@ func TestPassphraseValidate(t *testing.T) {
 		{Passphrase("lol"), false},
 		{Passphrase("123"), false},
 		{Passphrase("default"), false},
+		{Passphrase("de"), false},
+		{Passphrase("\n"), false},
 	}
 	for k, test := range tests {
 		testCase := test
