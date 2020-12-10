@@ -29,7 +29,7 @@ The FCEF format contain(s)
 A FCEF file generated with FileCrypt writes the encryption version that it used to encrypt the file **from 0x0 to 0x5**.
 It's used to check whether the FCEF file can be decrypted using the current version of the software.
 Every version after Ver 1 will contain this tag.   
-**Note: the last byte(0x5) of the version tag contains a line brake(`\n`)**
+**Note: the last byte(0x5) of the version tag contains a line brake(`\n`)**    
 **Note: the version number ranges from v0001 to v9999**
 
 ### Salt
