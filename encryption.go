@@ -15,9 +15,13 @@ type encryptedData []byte
 type decryptedData []byte
 type hash string
 
+// default size of a salt(bytes)
 const saltSize = 16
+
+// current encryption version(fcef format)
 const encryptionVer string = "v0002" + "\n"
 
+// contains all supported fcef format versions
 var supportedVersions = []string{"v0002"}
 
 func createHashArgon(key string, salt []byte) (hash, error) {
@@ -65,13 +69,15 @@ func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
 }
 
 func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
+	// gets the version number of fcef format from byte slice
 	ver, SaltAndMix := data[:len(encryptionVer)], data[len(encryptionVer):]
 	log.Println(string(ver))
 	if !checkSupport(string(ver)) {
 		return nil, errors.New("version not supported")
 	}
 
-	salt, mix := SaltAndMix[:saltSize], SaltAndMix[saltSize:] // salt
+	// gets the salt form the byte slice
+	salt, mix := SaltAndMix[:saltSize], SaltAndMix[saltSize:]
 	key, err := createHashArgon(string(p), salt)
 	if err != nil {
 		return nil, err
@@ -102,6 +108,8 @@ func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 	}
 	return plainData, nil
 }
+
+// checks if current version of FileCrypt supports the fcef format
 func checkSupport(ver string) bool {
 	for i := 0; i < len(supportedVersions); i++ {
 		if supportedVersions[i] == strings.Replace(ver, "\n", "", -1) {
