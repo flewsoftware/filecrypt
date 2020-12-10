@@ -24,6 +24,9 @@ func TestEncryptDecrypt(t *testing.T) {
 		{"test", Passphrase("%%%%%%%s")},
 		{"test", Passphrase("#491k2@")},
 		{"test", Passphrase("[]'fd;fo;hkaf")},
+		{"golang", Passphrase("[]'foplekdk")},
+		{"filecrypt", Passphrase("[][]-fgioamfifo;hkaf")},
+		{"95k20kd-2j4", Passphrase("[]'fd;fo;hkaf")},
 	}
 	for k, test := range tests {
 		testCase := test
