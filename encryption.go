@@ -40,7 +40,6 @@ func EncryptSHA256(data []byte, p Passphrase) (EncryptedData, error) {
 
 	// convert string to bytes
 	key, err := CreateHashArgon(string(p), salt)
-	log.Println(len(key))
 	if err != nil {
 		return nil, err
 	}
