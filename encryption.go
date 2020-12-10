@@ -24,10 +24,12 @@ const encryptionVer string = "v0002" + "\n"
 // contains all supported fcef format versions
 var supportedVersions = []string{"v0002"}
 
+// creates a argon2 hash from the key
 func createHashArgon(key string, salt []byte) (hash, error) {
 	return hash(argon2.IDKey([]byte(key), salt, 1, 60*1024, 4, 32)), nil
 }
 
+// encrypts byte slice using the passphrase
 func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
 	salt := make([]byte, saltSize)
 
@@ -68,6 +70,7 @@ func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
 
 }
 
+// decrypts byte slice using the passphrase
 func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 	// gets the version number of fcef format from byte slice
 	ver, SaltAndMix := data[:len(encryptionVer)], data[len(encryptionVer):]
