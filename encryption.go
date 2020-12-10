@@ -7,7 +7,6 @@ import (
 	"errors"
 	"golang.org/x/crypto/argon2"
 	"io"
-	"log"
 	"strings"
 )
 
@@ -56,7 +55,7 @@ func EncryptSHA256(data []byte, p Passphrase) (EncryptedData, error) {
 		return nil, err
 	}
 
-	// create a nonce
+	// create a nonce (12 bytes)
 	nonce := make([]byte, aesGCM.NonceSize())
 	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
 		return nil, err
