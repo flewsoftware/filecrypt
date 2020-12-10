@@ -72,7 +72,7 @@ func EncryptSHA256(data []byte, p Passphrase) (EncryptedData, error) {
 
 // decrypts byte slice using the passphrase
 func DecryptSHA256(data []byte, p Passphrase) (DecryptedData, error) {
-	// gets the version number of fcef format from byte slice
+	// extracts the version number of fcef format from byte slice
 	ver, SaltAndMix := data[:len(encryptionVer)], data[len(encryptionVer):]
 	if !CheckSupport(string(ver)) {
 		return nil, errors.New("version not supported")
