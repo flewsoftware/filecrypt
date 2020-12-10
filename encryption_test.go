@@ -28,13 +28,13 @@ func TestEncryptDecrypt(t *testing.T) {
 	for k, test := range tests {
 		testCase := test
 		t.Run(fmt.Sprint(k), func(t *testing.T) {
-			encryptedResults, err := encryptSHA256([]byte(testCase.input), testCase.passphrase)
+			encryptedResults, err := EncryptSHA256([]byte(testCase.input), testCase.passphrase)
 			if err != nil {
 				t.Errorf("unexpected error: %s", err)
 				return
 			}
 
-			decryptedResults, err := decryptSHA256(encryptedResults, testCase.passphrase)
+			decryptedResults, err := DecryptSHA256(encryptedResults, testCase.passphrase)
 			if err != nil {
 				t.Errorf("unexpected error: %s", err)
 				return

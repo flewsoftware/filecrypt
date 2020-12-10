@@ -32,7 +32,7 @@ func (a *App) Encrypt(fileLocation string, password Passphrase) (string, error) 
 		return "", fmt.Errorf("could not read file [%s]: %w", fileLocation, err)
 	}
 
-	encryptedFileData, err := encryptSHA256(fileData, password)
+	encryptedFileData, err := EncryptSHA256(fileData, password)
 	if err != nil {
 		return "", fmt.Errorf("could not encrypt data: %w", err)
 	}
@@ -72,7 +72,7 @@ func (a *App) Decrypt(fileLocation string, password Passphrase) (string, error) 
 	}
 
 	// decrypted byte slice
-	clearText, err := decryptSHA256(b, password)
+	clearText, err := DecryptSHA256(b, password)
 	if err != nil {
 		return "", fmt.Errorf("could not decrypt file: %w", err)
 	}

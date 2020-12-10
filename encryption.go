@@ -11,9 +11,9 @@ import (
 	"strings"
 )
 
-type encryptedData []byte
-type decryptedData []byte
-type hash string
+type EncryptedData []byte
+type DecryptedData []byte
+type Hash string
 
 // default size of a salt(bytes)
 const saltSize = 16
@@ -24,22 +24,22 @@ const encryptionVer string = "v0002" + "\n"
 // contains all supported fcef format versions
 var supportedVersions = []string{"v0002"}
 
-// creates a argon2 hash from the key
-func createHashArgon(key string, salt []byte) (hash, error) {
-	return hash(argon2.IDKey([]byte(key), salt, 1, 60*1024, 4, 32)), nil
+// creates a argon2 Hash from the key
+func CreateHashArgon(key string, salt []byte) (Hash, error) {
+	return Hash(argon2.IDKey([]byte(key), salt, 1, 60*1024, 4, 32)), nil
 }
 
 // encrypts byte slice using the passphrase
-func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
+func EncryptSHA256(data []byte, p Passphrase) (EncryptedData, error) {
 	salt := make([]byte, saltSize)
 
 	// Generate a Salt
 	if _, err := rand.Read(salt); err != nil {
-		return encryptedData(""), err
+		return EncryptedData(""), err
 	}
 
 	// convert string to bytes
-	key, err := createHashArgon(string(p), salt)
+	key, err := CreateHashArgon(string(p), salt)
 	log.Println(len(key))
 	if err != nil {
 		return nil, err
@@ -71,17 +71,17 @@ func encryptSHA256(data []byte, p Passphrase) (encryptedData, error) {
 }
 
 // decrypts byte slice using the passphrase
-func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
+func DecryptSHA256(data []byte, p Passphrase) (DecryptedData, error) {
 	// gets the version number of fcef format from byte slice
 	ver, SaltAndMix := data[:len(encryptionVer)], data[len(encryptionVer):]
 	log.Println(string(ver))
-	if !checkSupport(string(ver)) {
+	if !CheckSupport(string(ver)) {
 		return nil, errors.New("version not supported")
 	}
 
 	// gets the salt form the byte slice
 	salt, mix := SaltAndMix[:saltSize], SaltAndMix[saltSize:]
-	key, err := createHashArgon(string(p), salt)
+	key, err := CreateHashArgon(string(p), salt)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func decryptSHA256(data []byte, p Passphrase) (decryptedData, error) {
 }
 
 // checks if current version of FileCrypt supports the fcef format
-func checkSupport(ver string) bool {
+func CheckSupport(ver string) bool {
 	for i := 0; i < len(supportedVersions); i++ {
 		if supportedVersions[i] == strings.Replace(ver, "\n", "", -1) {
 			return true
