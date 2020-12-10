@@ -17,13 +17,17 @@ This tag contains the actual data that is used to decrypt.
 ## Ver 2 (v0002)
 This document explains the specification of the FCEF file format Ver 2
 
+
+[![FCEF visual representation](./res/fcef%20vis.png)]
+
+
 The FCEF format contain(s)
 1. Version number
 2. Salt
 3. Nonce & Encrypted data
 
 **These will be called tags hereafter**     
-**The tag size(excluding Encrypted data) of FCEF Ver2 is 22 bytes**
+**The tag size(excluding Encrypted data) of FCEF Ver2 is 34 bytes**
 
 ### Version number
 A FCEF file generated with FileCrypt writes the encryption version that it used to encrypt the file **from 0x0 to 0x5**.
@@ -36,7 +40,7 @@ Every version after Ver 1 will contain this tag.
 A FCEF file generated with FileCrypt writes the salt generated using `rand.Read(salt)` **from 0x6 to 0x15**
 It's used while decrypting to regenerate the argon2 hash from the password.
 
-### Encrypted data
-A FCEF file generated with FileCrypt writes the nonce and encrypted data **after 0x15**.   
+### Nonce & Encrypted data
+A FCEF file generated with FileCrypt writes the nonce **from 0x16-0x21** and encrypted data **after 0x21**.   
 This tag contains the actual data that is used to decrypt.
 
