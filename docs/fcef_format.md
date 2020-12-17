@@ -18,7 +18,7 @@ This tag contains the actual data that is used to decrypt.
 This document explains the specification of the FCEF file format Ver 2
 
 
-[![FCEF visual representation](./res/fcef%20vis.png)]
+![FCEF visual representation](./res/fcef%20vis.png)
 
 
 The FCEF format contain(s)
