@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/flew-software/filecrypt"
+	"github.com/flew-software/filecrypt/v2"
 	"os"
 	"strings"
 )
@@ -28,7 +28,7 @@ func main() {
 	flag.BoolVar(&force, "force", false, "Force write even if a file exists with that name (overwrite)")
 	flag.Parse()
 
-	app := filecrypt.App{
+	app := v2.App{
 		FileCryptExtension: fileCryptExtension,
 		Overwrite:          force,
 	}
@@ -39,7 +39,7 @@ func main() {
 
 	switch strings.ToLower(mode) {
 	case "encrypt", "e":
-		newFile, err := app.Encrypt(fileLocation, filecrypt.Passphrase(password))
+		newFile, err := app.Encrypt(fileLocation, v2.Passphrase(password))
 		if err != nil {
 			fmt.Printf("could not encrypt file: %s\n", err)
 			os.Exit(1)
@@ -47,7 +47,7 @@ func main() {
 		fmt.Printf("file encrypted:\n%s\n", newFile)
 
 	case "decrypt", "d":
-		newFile, err := app.Decrypt(fileLocation, filecrypt.Passphrase(password))
+		newFile, err := app.Decrypt(fileLocation, v2.Passphrase(password))
 		if err != nil {
 			fmt.Printf("could not decrypt file: %s\n", err)
 			os.Exit(1)

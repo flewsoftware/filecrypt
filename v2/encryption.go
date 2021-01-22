@@ -1,4 +1,4 @@
-package filecrypt
+package v2
 
 import (
 	"crypto/aes"
