@@ -8,7 +8,8 @@
 A super easy to use file encryption utility written in golang   
 [![FILECRYPT](https://repository-images.githubusercontent.com/312549577/6eb8d100-2851-11eb-9c77-3a2a197b95ee)](https://github.com/flew-software/filecrypt)
 
-⚠ **Help Wanted** on porting filecrypt to other programing languages
+⚠ **Help Wanted** on porting filecrypt to other programing languages   
+** NOTE:** if you are planning to use filecrypt for your go-lang project please clone this repo and build your software from there
 
 ## What's the difference
 * Speed
